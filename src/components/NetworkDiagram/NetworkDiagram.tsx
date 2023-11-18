@@ -7,12 +7,14 @@ type NetworkDiagramProps = {
   width: number;
   height: number;
   data: Data;
+  config: NetworkDiagramConfigProps;
 };
 
 export const NetworkDiagram: React.FC<NetworkDiagramProps> = ({
   width,
   height,
   data,
+  config,
 }) => {
   // The force simulation mutates links and nodes, so create a copy first
   // Node positions are initialized by d3

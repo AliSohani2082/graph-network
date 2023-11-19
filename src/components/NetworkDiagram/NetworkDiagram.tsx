@@ -16,35 +16,32 @@ export const NetworkDiagram: React.FC<NetworkDiagramProps> = ({
   data,
   config,
 }) => {
-  // The force simulation mutates links and nodes, so create a copy first
-  // Node positions are initialized by d3
   const links: Link[] = data.links.map((d: Link) => ({ ...d }));
   const nodes: Node[] = data.nodes.map((d: Node) => ({ ...d }));
 
   const canvasRef = React.useRef<HTMLCanvasElement>(null);
 
   React.useEffect(() => {
-    // set dimension of the canvas element
     const canvas = canvasRef.current;
     const context = canvas?.getContext("2d");
     if (!context) {
       return;
     }
 
-    // run d3-force to find the position of nodes on the canvas
     d3.forceSimulation(nodes)
-
-      // list of forces we apply to get node positions
       .force(
         "link",
         d3.forceLink<Node, Link>(links).id((d) => d.id)
       )
-      .force("charge", d3.forceManyBody())
+      .force(
+        "collide",
+        d3.forceCollide().radius(config.collideRadius).strength(0.5)
+      )
+      .force("charge", d3.forceManyBody().strength(config.manyBodyStrength))
       .force("center", d3.forceCenter(width / 2, height / 2))
-
-      // at each iteration of the simulation, draw the network diagram with the new node positions
+      .force("charge", d3.forceY(0).strength(config.forceYStrength))
       .on("tick", () => {
-        drawNetwork(context, width, height, nodes, links);
+        drawNetwork(context, width, height, nodes, links, config.radiusEffect);
       });
   }, [width, height, nodes, links]);
 

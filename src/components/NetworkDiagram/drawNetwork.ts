@@ -8,7 +8,8 @@ export const drawNetwork = (
   width: number,
   height: number,
   nodes: Node[],
-  links: Link[]
+  links: Link[],
+  radiusEffect: number
 ) => {
   context.clearRect(0, 0, width, height);
 
@@ -48,13 +49,14 @@ export const drawNetwork = (
   context.strokeStyle = "#fff";
   context.lineWidth = 3;
   nodes.forEach((node) => {
+    const radious = RADIUS + node.size * 3 * (radiusEffect / 100);
     if (!node.x || !node.y) {
       return;
     }
 
     context.beginPath();
-    context.moveTo(node.x + RADIUS, node.y);
-    context.arc(node.x, node.y, RADIUS, 0, 2 * Math.PI);
+    context.moveTo(node.x + radious, node.y);
+    context.arc(node.x, node.y, radious, 0, 2 * Math.PI);
     context.fillStyle = colorScale(String(node.group));
     context.stroke();
     context.fill();

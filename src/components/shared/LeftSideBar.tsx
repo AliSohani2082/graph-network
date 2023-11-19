@@ -8,9 +8,11 @@ type LefSideBarProps = {
   setCollideRadius: Dispatch<SetStateAction<number>>;
   setManyBodyStrength: Dispatch<SetStateAction<number>>;
   setForceYStrength: Dispatch<SetStateAction<number>>;
+  setRadiusEffect: Dispatch<SetStateAction<number>>;
   collideRadius: number;
   manyBodyStrength: number;
   forceYStrength: number;
+  radiusEffect: number;
 };
 
 const LeftSideBar: React.FC<LefSideBarProps> = ({
@@ -20,6 +22,8 @@ const LeftSideBar: React.FC<LefSideBarProps> = ({
   setManyBodyStrength,
   forceYStrength,
   setForceYStrength,
+  radiusEffect,
+  setRadiusEffect,
 }) => {
   return (
     <nav className="hidden md:flex px-6 py-10 flex-col justify-between min-w-[270px] bg-dark-2">
@@ -55,6 +59,17 @@ const LeftSideBar: React.FC<LefSideBarProps> = ({
           max={1}
           value={[forceYStrength]}
           onValueChange={(value) => setForceYStrength(value[0])}
+          step={0.1}
+        />
+      </div>
+      <div className="w-full flex flex-col justify-start items-center mb-6">
+        <Label className="mb-4">Size Effect on radius: {radiusEffect}</Label>
+        <Slider
+          defaultValue={[40]}
+          min={0}
+          max={100}
+          value={[radiusEffect]}
+          onValueChange={(value) => setRadiusEffect(value[0])}
           step={1}
         />
       </div>

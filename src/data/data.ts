@@ -1,18 +1,18 @@
-export interface Node extends d3.SimulationNodeDatum {
+export interface NodeData extends d3.SimulationNodeDatum {
   id: string;
   group: number;
   size: number;
 }
 
-export interface Link extends d3.SimulationLinkDatum<Node> {
+export interface LinkData extends d3.SimulationLinkDatum<NodeData> {
   source: string;
   target: string;
   value: number;
 }
 
 export type Data = {
-  nodes: Node[];
-  links: Link[];
+  nodes: NodeData[];
+  links: LinkData[];
 };
 
 export const data: Data = {

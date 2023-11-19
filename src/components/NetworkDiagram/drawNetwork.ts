@@ -1,5 +1,5 @@
 import { scaleOrdinal, schemeCategory10 } from "d3";
-import { Link, Node } from "../../data";
+import { LinkData, NodeData } from "@/data/data";
 
 export const RADIUS = 8;
 
@@ -7,8 +7,8 @@ export const drawNetwork = (
   context: CanvasRenderingContext2D,
   width: number,
   height: number,
-  nodes: Node[],
-  links: Link[],
+  nodes: NodeData[],
+  links: LinkData[],
   radiusEffect: number
 ) => {
   context.clearRect(0, 0, width, height);
